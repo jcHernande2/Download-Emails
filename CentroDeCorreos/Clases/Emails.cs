@@ -21,15 +21,15 @@ namespace CentroDeCorreos.Clases
         {
             tblUsuarioSynergia UsuarioSynergia= DataBase.GetUsuario(idUser);
             //usuario/mail de gmail
-            // string username = "prueba@grupomdc.com";
-            string username = UsuarioSynergia.pop3user;//"pruebas.mdc@mdcempleos.com";
+            // string username = "";
+            string username = UsuarioSynergia.pop3user;//"";
             //password
-            //string password = "BRSCT{Xh0sx1vxAv";
-            string password = UsuarioSynergia.pop3pwd;// "7X]u0+%OhL";
+            //string password = "";
+            string password = UsuarioSynergia.pop3pwd;// "";
             //el puerto para pop de gmail es el 995
             int port = 995;
             //el host de pop de gmail es pop.gmail.com
-            //string hostname = "indica.websitewelcome.com";
+            //string hostname = "";
             string hostname = UsuarioSynergia.pop3server;//"outlook.office365.com";
             //esta opción debe ir en true
             bool useSsl = true;
