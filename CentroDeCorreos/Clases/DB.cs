@@ -8,7 +8,7 @@ namespace CentroDeCorreos.Clases
 {
     public class DB
     {
-        MDCSynergiaEntities3 DbMDCSynergia = new MDCSynergiaEntities3();
+        MDCSynergiaEntities4 DbMDCSynergia = new MDCSynergiaEntities4();
         public long GuardarCorreo(string Remitente, string Asunto, string Cc, string Cco, string Cuerpo,string Destinatario,string EncabezadoMensaje
             , string idMensajeServer,long idUser,DateTime FechaEnvio)
         {

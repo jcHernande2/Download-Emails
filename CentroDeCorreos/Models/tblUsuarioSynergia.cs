@@ -38,6 +38,10 @@ namespace CentroDeCorreos.Models
         public long idPuesto { get; set; }
         public int Orden { get; set; }
         public string Iniciales { get; set; }
+        public string SMTPserver { get; set; }
+        public int SMTPport { get; set; }
+        public int POPport { get; set; }
+        public string Bcc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCorreosElectronicosPruebas> tblCorreosElectronicosPruebas { get; set; }

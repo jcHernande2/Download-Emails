@@ -13,10 +13,10 @@ namespace CentroDeCorreos.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MDCSynergiaEntities3 : DbContext
+    public partial class MDCSynergiaEntities4 : DbContext
     {
-        public MDCSynergiaEntities3()
-            : base("name=MDCSynergiaEntities3")
+        public MDCSynergiaEntities4()
+            : base("name=MDCSynergiaEntities4")
         {
         }
     
@@ -25,9 +25,9 @@ namespace CentroDeCorreos.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblAdjuntosCorreoPruebas> tblAdjuntosCorreoPruebas { get; set; }
         public virtual DbSet<tblCorreosElectronicosPruebas> tblCorreosElectronicosPruebas { get; set; }
         public virtual DbSet<tblUsuarioSynergia> tblUsuarioSynergia { get; set; }
         public virtual DbSet<tblUsuarioSynergiaRelCatFranquicia> tblUsuarioSynergiaRelCatFranquicia { get; set; }
-        public virtual DbSet<tblAdjuntosCorreoPruebas> tblAdjuntosCorreoPruebas { get; set; }
     }
 }

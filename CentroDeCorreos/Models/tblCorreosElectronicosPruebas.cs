@@ -41,8 +41,8 @@ namespace CentroDeCorreos.Models
         public string FechaTemporal { get; set; }
         public string Destinatario { get; set; }
     
-        public virtual tblUsuarioSynergia tblUsuarioSynergia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblAdjuntosCorreoPruebas> tblAdjuntosCorreoPruebas { get; set; }
+        public virtual tblUsuarioSynergia tblUsuarioSynergia { get; set; }
     }
 }
