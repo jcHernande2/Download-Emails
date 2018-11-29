@@ -1,0 +1,39 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<CentroDeCorreos.Models.tblCorreosElectronicosPruebas>
+<!----model IEnumerable<CentroCorreos.Models.MensajeInbox>-->
+<div class='row' style='overflow-x: scroll; margin:0px;' id="listainbox">
+    <table class='table table-hover  table-striped '>
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="chckselect"></th>
+                <th>Asunto</th>
+                <th>Remitente</th>
+                <th><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span></th>
+                <th>Fecha</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr key="@item.idMensajeServer" id="trinbox" class="trinbox" style="cursor:pointer">
+                <td data-toggle="modal" data-target="#myModal"><input type="checkbox" name="chckmail"></td>
+                <td data-toggle="modal" data-target="#myModal">@item.Asunto</td>
+                <td data-toggle="modal" data-target="#myModal">@item.Remitente</td>
+                <td data-toggle="modal" data-target="#myModal">@item.tblAdjuntosCorreoPruebas.Count()</td>
+                <td data-toggle="modal" data-target="#myModal">@item.FechaEnvio</td>
+                <td data-toggle="modal" data-target="#myModal"></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div id="idpageList" class="pagedList" data-otf-target="#listainbox">
+        
+        @Html.PagedListPager(Model, page => Url.Action("Inbox", new { page }),
+             PagedListRenderOptions.OnlyShowFivePagesAtATime)
+
+        <!--PagedListRenderOptions.MinimalWithItemCountText-->
+    </div>
+</div>
+

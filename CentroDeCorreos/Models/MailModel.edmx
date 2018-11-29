@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MDCSynergiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAdjuntosCorreoPruebas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCorreoElectronico" Type="bigint" Nullable="false" />
+          <Property Name="NombreArchivo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RutaArchivo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="idTemporal" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="TipoMime" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCorreosElectronicosPruebas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idContacto" Type="bigint" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Asunto" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Remitente" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="idUsuario" Type="bigint" Nullable="false" />
+          <Property Name="Tipo" Type="bit" Nullable="false" />
+          <Property Name="FechaEnvio" Type="datetime" Nullable="false" />
+          <Property Name="Privado" Type="bit" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+          <Property Name="FechaDescarga" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nuevo" Type="bit" Nullable="false" />
+          <Property Name="Cuerpo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EncabezadoMensaje" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="idTemporal" Type="bigint" />
+          <Property Name="idMensajeServer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cc" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Cco" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FechaTemporal" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="Destinatario" Type="nvarchar" MaxLength="4000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsuarioSynergia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idFranquicia" Type="bigint" Nullable="false" />
+          <Property Name="pop3server" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="pop3user" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="pop3pwd" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Administrador" Type="bit" Nullable="false" />
+          <Property Name="Modifica" Type="bit" Nullable="false" />
+          <Property Name="Restringido" Type="bit" Nullable="false" />
+          <Property Name="800" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Estatus" Type="bit" Nullable="false" />
+          <Property Name="idTemporal" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="idUsuarioIntranet" Type="bigint" />
+          <Property Name="idMobileInfo" Type="bigint" />
+          <Property Name="idPuesto" Type="bigint" Nullable="false" />
+          <Property Name="Orden" Type="int" Nullable="false" />
+          <Property Name="Iniciales" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblUsuarioSynergiaRelCatFranquicia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuarioSynergia" Type="bigint" Nullable="false" />
+          <Property Name="idFranquicia" Type="bigint" Nullable="false" />
+          <Property Name="Orden" Type="smallint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas">
+          <End Role="tblCorreosElectronicosPruebas" Type="Self.tblCorreosElectronicosPruebas" Multiplicity="1" />
+          <End Role="tblAdjuntosCorreoPruebas" Type="Self.tblAdjuntosCorreoPruebas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCorreosElectronicosPruebas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblAdjuntosCorreoPruebas">
+              <PropertyRef Name="idCorreoElectronico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia">
+          <End Role="tblUsuarioSynergia" Type="Self.tblUsuarioSynergia" Multiplicity="1" />
+          <End Role="tblCorreosElectronicosPruebas" Type="Self.tblCorreosElectronicosPruebas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsuarioSynergia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCorreosElectronicosPruebas">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia">
+          <End Role="tblUsuarioSynergia" Type="Self.tblUsuarioSynergia" Multiplicity="1" />
+          <End Role="tblUsuarioSynergiaRelCatFranquicia" Type="Self.tblUsuarioSynergiaRelCatFranquicia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsuarioSynergia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUsuarioSynergiaRelCatFranquicia">
+              <PropertyRef Name="idUsuarioSynergia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MDCSynergiaModelStoreContainer">
+          <EntitySet Name="tblAdjuntosCorreoPruebas" EntityType="Self.tblAdjuntosCorreoPruebas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCorreosElectronicosPruebas" EntityType="Self.tblCorreosElectronicosPruebas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsuarioSynergia" EntityType="Self.tblUsuarioSynergia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUsuarioSynergiaRelCatFranquicia" EntityType="Self.tblUsuarioSynergiaRelCatFranquicia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas" Association="Self.FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas">
+            <End Role="tblCorreosElectronicosPruebas" EntitySet="tblCorreosElectronicosPruebas" />
+            <End Role="tblAdjuntosCorreoPruebas" EntitySet="tblAdjuntosCorreoPruebas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia" Association="Self.FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia">
+            <End Role="tblUsuarioSynergia" EntitySet="tblUsuarioSynergia" />
+            <End Role="tblCorreosElectronicosPruebas" EntitySet="tblCorreosElectronicosPruebas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia" Association="Self.FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia">
+            <End Role="tblUsuarioSynergia" EntitySet="tblUsuarioSynergia" />
+            <End Role="tblUsuarioSynergiaRelCatFranquicia" EntitySet="tblUsuarioSynergiaRelCatFranquicia" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MDCSynergiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCorreosElectronicosPruebas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idContacto" Type="Int64" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Asunto" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remitente" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idUsuario" Type="Int64" Nullable="false" />
+          <Property Name="Tipo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaEnvio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Privado" Type="Boolean" Nullable="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <Property Name="FechaDescarga" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nuevo" Type="Boolean" Nullable="false" />
+          <Property Name="Cuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EncabezadoMensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idTemporal" Type="Int64" />
+          <Property Name="idMensajeServer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cc" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cco" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaTemporal" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Destinatario" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblUsuarioSynergia" Relationship="Self.FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia" FromRole="tblCorreosElectronicosPruebas" ToRole="tblUsuarioSynergia" />
+          <NavigationProperty Name="tblAdjuntosCorreoPruebas" Relationship="MDCSynergiaModel.FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas" FromRole="tblCorreosElectronicosPruebas" ToRole="tblAdjuntosCorreoPruebas" />
+        </EntityType>
+        <EntityType Name="tblUsuarioSynergia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFranquicia" Type="Int64" Nullable="false" />
+          <Property Name="pop3server" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pop3user" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="pop3pwd" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Administrador" Type="Boolean" Nullable="false" />
+          <Property Name="Modifica" Type="Boolean" Nullable="false" />
+          <Property Name="Restringido" Type="Boolean" Nullable="false" />
+          <Property Name="C800" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Estatus" Type="Boolean" Nullable="false" />
+          <Property Name="idTemporal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idUsuarioIntranet" Type="Int64" />
+          <Property Name="idMobileInfo" Type="Int64" />
+          <Property Name="idPuesto" Type="Int64" Nullable="false" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <Property Name="Iniciales" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblCorreosElectronicosPruebas" Relationship="Self.FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia" FromRole="tblUsuarioSynergia" ToRole="tblCorreosElectronicosPruebas" />
+          <NavigationProperty Name="tblUsuarioSynergiaRelCatFranquicia" Relationship="Self.FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia" FromRole="tblUsuarioSynergia" ToRole="tblUsuarioSynergiaRelCatFranquicia" />
+        </EntityType>
+        <EntityType Name="tblUsuarioSynergiaRelCatFranquicia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuarioSynergia" Type="Int64" Nullable="false" />
+          <Property Name="idFranquicia" Type="Int64" Nullable="false" />
+          <Property Name="Orden" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="tblUsuarioSynergia" Relationship="Self.FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia" FromRole="tblUsuarioSynergiaRelCatFranquicia" ToRole="tblUsuarioSynergia" />
+        </EntityType>
+        <Association Name="FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia">
+          <End Role="tblUsuarioSynergia" Type="Self.tblUsuarioSynergia" Multiplicity="1" />
+          <End Role="tblCorreosElectronicosPruebas" Type="Self.tblCorreosElectronicosPruebas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsuarioSynergia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblCorreosElectronicosPruebas">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia">
+          <End Role="tblUsuarioSynergia" Type="Self.tblUsuarioSynergia" Multiplicity="1" />
+          <End Role="tblUsuarioSynergiaRelCatFranquicia" Type="Self.tblUsuarioSynergiaRelCatFranquicia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsuarioSynergia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblUsuarioSynergiaRelCatFranquicia">
+              <PropertyRef Name="idUsuarioSynergia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MDCSynergiaEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCorreosElectronicosPruebas" EntityType="Self.tblCorreosElectronicosPruebas" />
+          <EntitySet Name="tblUsuarioSynergia" EntityType="Self.tblUsuarioSynergia" />
+          <EntitySet Name="tblUsuarioSynergiaRelCatFranquicia" EntityType="Self.tblUsuarioSynergiaRelCatFranquicia" />
+          <AssociationSet Name="FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia" Association="Self.FK_tblCorreosElectronicosPruebas_tblUsuarioSynergia">
+            <End Role="tblUsuarioSynergia" EntitySet="tblUsuarioSynergia" />
+            <End Role="tblCorreosElectronicosPruebas" EntitySet="tblCorreosElectronicosPruebas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia" Association="Self.FK_tblUsuarioSynergiaRelCatFranquicia_tblUsuarioSynergia">
+            <End Role="tblUsuarioSynergia" EntitySet="tblUsuarioSynergia" />
+            <End Role="tblUsuarioSynergiaRelCatFranquicia" EntitySet="tblUsuarioSynergiaRelCatFranquicia" />
+          </AssociationSet>
+          <EntitySet Name="tblAdjuntosCorreoPruebas" EntityType="MDCSynergiaModel.tblAdjuntosCorreoPruebas" />
+          <AssociationSet Name="FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas" Association="MDCSynergiaModel.FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas">
+            <End Role="tblCorreosElectronicosPruebas" EntitySet="tblCorreosElectronicosPruebas" />
+            <End Role="tblAdjuntosCorreoPruebas" EntitySet="tblAdjuntosCorreoPruebas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblAdjuntosCorreoPruebas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCorreoElectronico" Type="Int64" Nullable="false" />
+          <Property Name="NombreArchivo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RutaArchivo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="idTemporal" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="TipoMime" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblCorreosElectronicosPruebas" Relationship="MDCSynergiaModel.FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas" FromRole="tblAdjuntosCorreoPruebas" ToRole="tblCorreosElectronicosPruebas" />
+        </EntityType>
+        <Association Name="FK_tblAdjuntosCorreoPruebas_tblCorreosElectronicosPruebas">
+          <End Type="MDCSynergiaModel.tblCorreosElectronicosPruebas" Role="tblCorreosElectronicosPruebas" Multiplicity="1" />
+          <End Type="MDCSynergiaModel.tblAdjuntosCorreoPruebas" Role="tblAdjuntosCorreoPruebas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCorreosElectronicosPruebas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tblAdjuntosCorreoPruebas">
+              <PropertyRef Name="idCorreoElectronico" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MDCSynergiaModelStoreContainer" CdmEntityContainer="MDCSynergiaEntities3">
+          <EntitySetMapping Name="tblCorreosElectronicosPruebas">
+            <EntityTypeMapping TypeName="MDCSynergiaModel.tblCorreosElectronicosPruebas">
+              <MappingFragment StoreEntitySet="tblCorreosElectronicosPruebas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idContacto" ColumnName="idContacto" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Asunto" ColumnName="Asunto" />
+                <ScalarProperty Name="Remitente" ColumnName="Remitente" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="Privado" ColumnName="Privado" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="FechaDescarga" ColumnName="FechaDescarga" />
+                <ScalarProperty Name="Nuevo" ColumnName="Nuevo" />
+                <ScalarProperty Name="Cuerpo" ColumnName="Cuerpo" />
+                <ScalarProperty Name="EncabezadoMensaje" ColumnName="EncabezadoMensaje" />
+                <ScalarProperty Name="idTemporal" ColumnName="idTemporal" />
+                <ScalarProperty Name="idMensajeServer" ColumnName="idMensajeServer" />
+                <ScalarProperty Name="Cc" ColumnName="Cc" />
+                <ScalarProperty Name="Cco" ColumnName="Cco" />
+                <ScalarProperty Name="FechaTemporal" ColumnName="FechaTemporal" />
+                <ScalarProperty Name="Destinatario" ColumnName="Destinatario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsuarioSynergia">
+            <EntityTypeMapping TypeName="MDCSynergiaModel.tblUsuarioSynergia">
+              <MappingFragment StoreEntitySet="tblUsuarioSynergia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idFranquicia" ColumnName="idFranquicia" />
+                <ScalarProperty Name="pop3server" ColumnName="pop3server" />
+                <ScalarProperty Name="pop3user" ColumnName="pop3user" />
+                <ScalarProperty Name="pop3pwd" ColumnName="pop3pwd" />
+                <ScalarProperty Name="Administrador" ColumnName="Administrador" />
+                <ScalarProperty Name="Modifica" ColumnName="Modifica" />
+                <ScalarProperty Name="Restringido" ColumnName="Restringido" />
+                <ScalarProperty Name="C800" ColumnName="800" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="idTemporal" ColumnName="idTemporal" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idUsuarioIntranet" ColumnName="idUsuarioIntranet" />
+                <ScalarProperty Name="idMobileInfo" ColumnName="idMobileInfo" />
+                <ScalarProperty Name="idPuesto" ColumnName="idPuesto" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="Iniciales" ColumnName="Iniciales" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsuarioSynergiaRelCatFranquicia">
+            <EntityTypeMapping TypeName="MDCSynergiaModel.tblUsuarioSynergiaRelCatFranquicia">
+              <MappingFragment StoreEntitySet="tblUsuarioSynergiaRelCatFranquicia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idUsuarioSynergia" ColumnName="idUsuarioSynergia" />
+                <ScalarProperty Name="idFranquicia" ColumnName="idFranquicia" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAdjuntosCorreoPruebas">
+            <EntityTypeMapping TypeName="MDCSynergiaModel.tblAdjuntosCorreoPruebas">
+              <MappingFragment StoreEntitySet="tblAdjuntosCorreoPruebas">
+                <ScalarProperty Name="TipoMime" ColumnName="TipoMime" />
+                <ScalarProperty Name="idTemporal" ColumnName="idTemporal" />
+                <ScalarProperty Name="RutaArchivo" ColumnName="RutaArchivo" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="idCorreoElectronico" ColumnName="idCorreoElectronico" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
